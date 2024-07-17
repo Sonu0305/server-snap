@@ -14,6 +14,17 @@ start_rocketchat() {
     export MONGO_OPLOG_URL=$(snapctl get mongo-oplog-url)
     export ROOT_URL=$(snapctl get siteurl)
     export REG_TOKEN=$(snapctl get reg-token)
+	export DENO_DIR="$SNAP_COMMON/.cache/deno"
+
+	if ! [[ -d "$DENO_DIR" ]]; then
+		mkdir -pv "$(dirname $DENO_DIR)"
+	fi
+
+	if [[ -d "$SNAP/.cache/deno" ]]; then
+		cp -vr "$SNAP/.cache/deno" "$DENO_DIR"
+	else
+		echo "[WARN] deno cache directory not found, apps may not work correctly" >&2
+	fi
 
     # We know that mongodb IS running
     # Let's save the PID someplace
