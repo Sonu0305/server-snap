@@ -228,6 +228,7 @@ parts:
     stage-packages:
       - fontconfig
     override-build: |
+      export DENO_DIR="$PWD/.cache/deno"
       (cd programs/server; npm i --production --unsafe-perm)
       snapcraftctl build
     filesets:
