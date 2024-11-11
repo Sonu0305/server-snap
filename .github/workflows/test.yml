@@ -7,6 +7,10 @@ on:
       tag:
         required: true
         type: string
+      test-only:
+        required: false
+        type: string
+        default: 'false'
     outputs:
       snap-basename:
         value: ${{ jobs.build.outputs.snap-basename }}
@@ -71,7 +75,9 @@ jobs:
             (( ${v1[2]} > ${v2[2]} )) && return 0
             return 1
           }
-          if is_gt $version $current_version; then
+          if [[ ${{ inputs.test-only }} == "true" ]]; then
+            run=true
+          elif is_gt $version $current_version; then
             run=true
             if [[ $candidate == 'false' ]]; then commit=true; fi
           fi

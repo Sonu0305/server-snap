@@ -1,0 +1,28 @@
+name: Build and test snap
+
+on:
+  pull_request:
+    branches: '**'
+      # - develop
+
+jobs:
+  variables:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.vars.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: vars
+        shell: bash
+        run: |
+          tag="$(awk -F: '/version/ { print $2 }' snap/snapcraft.yaml | tr -d '[:space:]')"
+          echo "tag: $tag"
+          echo "tag=$tag" >> $GITHUB_OUTPUT
+
+  build-and-test:
+    uses: RocketChat/server-snap/.github/workflows/test.yml@develop
+    needs: [variables]
+    with:
+      tag: ${{ needs.variables.outputs.tag }}
+      test-only: 'true'
+
