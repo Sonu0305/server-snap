@@ -154,7 +154,7 @@ jobs:
       - name: 'Clone tests repository'
         uses: actions/checkout@v3
         with:
-          repository: debdutdeb/rocket.chat.tests
+          repository: RocketChat/public-releases
           submodules: true
 
       - name: 'Run tests'
