@@ -49,7 +49,7 @@ apps:
       - network-bind
 
   mongo:
-    command: bin/mongo
+    command: bin/mongosh
     environment: {LC_ALL: C}
     plugs: [network]
 
