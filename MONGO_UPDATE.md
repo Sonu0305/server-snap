@@ -3,7 +3,7 @@
 ## 1. Enable migration
 
 ```sh
-chmod +x migrations/pre_refresh/feature_compatibility/00-adopt-version.sh
+chmod +x migrations/pre_refresh/feature_compatibility/00-adopt_version.sh
 ```
 
 This migration or pre-refresh script will make sure the feature compatibility version of the existing mongodb instance is set correctly for the update to pass through successfully.
