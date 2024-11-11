@@ -26,5 +26,5 @@ jobs:
       tag: ${{ needs.variables.outputs.tag }}
       test-only: 'true'
     secrets:
-      snapcraft-credential: ${{ secrets.snapcraft-credential }}
+      snapcraft-credential: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
 
