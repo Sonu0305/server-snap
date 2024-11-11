@@ -3,7 +3,6 @@ name: Build and test snap
 on:
   pull_request:
     branches: '**'
-      # - develop
 
 jobs:
   variables:
@@ -20,7 +19,7 @@ jobs:
           echo "tag=$tag" >> $GITHUB_OUTPUT
 
   build-and-test:
-    uses: RocketChat/server-snap/.github/workflows/test.yml@develop
+    uses: RocketChat/server-snap/.github/workflows/test.yml@${{ github.head_ref || github.ref_name }}
     needs: [variables]
     with:
       tag: ${{ needs.variables.outputs.tag }}
