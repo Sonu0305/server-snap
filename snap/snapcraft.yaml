@@ -49,7 +49,12 @@ apps:
       - network-bind
 
   mongo:
-    command: bin/mongosh
+    command: usr/bin/mongosh
+    environment: {LC_ALL: C}
+    plugs: [network]
+
+  mongosh:
+    command: usr/bin/mongosh
     environment: {LC_ALL: C}
     plugs: [network]
 
@@ -120,6 +125,11 @@ parts:
     stage:
       - bin/mongodump
       - bin/mongorestore
+
+  mongosh:
+    plugin: dump
+    source: https://downloads.mongodb.com/compass/mongodb-mongosh_2.3.3_amd64.deb
+    source-type: deb
 
   node:
     plugin: dump
