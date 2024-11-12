@@ -146,6 +146,15 @@ parts:
       - include
       - lib
 
+  deno:
+    plugin: dump
+    # https://github.com/RocketChat/Rocket.Chat/blob/3bd70ee2165942a0fc731dbfd16482362eb5114a/apps/meteor/.docker/Dockerfile.debian#L1
+    source:
+      - on amd64: https://github.com/denoland/deno/releases/download/v1.37.1/deno-x86_64-unknown-linux-gnu.zip
+    source-type: zip
+    organize:
+      deno: bin/deno # https://github.com/RocketChat/public-releases/blob/96976fbc0e263658e55281472b3fd04b77defc1b/snap/snap.bats#L58
+
   # libvips:
   #   source:
   #     - on arm64: https://github.com/libvips/libvips/releases/download/v8.12.2/vips-8.12.2.tar.gz

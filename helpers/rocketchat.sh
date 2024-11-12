@@ -14,6 +14,9 @@ start_rocketchat() {
     export MONGO_OPLOG_URL=$(snapctl get mongo-oplog-url)
     export ROOT_URL=$(snapctl get siteurl)
     export REG_TOKEN=$(snapctl get reg-token)
+	export DENO_DIR="$SNAP_COMMON/deno"
+
+	[[ -d "$DENO_DIR" ]] || mkdir -p "$DENO_DIR"
 
     # We know that mongodb IS running
     # Let's save the PID someplace
