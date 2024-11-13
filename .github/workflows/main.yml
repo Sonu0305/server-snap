@@ -11,12 +11,34 @@ on:
         required: true
       github-token:
         required: true
+  workflow_dispatch:
+    # this trigger uses existing version for release
 
 jobs:
+  prereqs:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps._id.outputs.version }}
+    steps:
+      - shell: bash
+        id: _id
+        run: |
+          tag=
+          if [[ "${{ github.event_name }}" == 'workflow_dispatch' ]]; then
+            tag="$(awk -F: '/^version:/ snap/snapcraft.yaml {print $2}' | tr -d '[:space:]')"
+          else
+            tag="${{inputs.tag}}"
+          fi
+
+          echo "tag: $tag"
+          echo "version=$tag" >> $GITHUB_OUTPUT
+
+
   build-and-test:
+    needs: [ prereqs ]
     uses: RocketChat/server-snap/.github/workflows/test.yml@develop
     with:
-      tag: ${{ inputs.tag }}
+      tag: ${{ needs.prereqs.outputs.version }}
 
   release:
     if: '! contains(inputs.tag, ''rc'')'
