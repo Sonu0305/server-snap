@@ -12,7 +12,7 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
           path: server-snap
-            
+
       - name: Set variables
         id: prepare
         working-directory: server-snap
@@ -34,11 +34,11 @@ jobs:
         id: snap-build
         with:
           path: server-snap
-          
+
       - name: 'Clone tests repository'
         uses: actions/checkout@v3
         with:
-          repository: debdutdeb/rocket.chat.tests
+          repository: RocketChat/public-releases
           submodules: true
           path: tests
 

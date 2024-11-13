@@ -7,6 +7,11 @@ MAX_MONGOD_START_RETRY_COUNT=30
 MAX_MONGOD_PRIMARY_WAIT_SECONDS=5
 MAX_MONGOD_PRIMARY_RETRY_COUNT=10
 
+mongo() {
+	# TODO switch to mongosh commands all over
+	mongosh "$@"
+}
+
 is_mongod_running() {
   local pid_file
   if ! pid_file=$(yq -e e .processManagement.pidFilePath $SNAP_DATA/mongod.conf); then
