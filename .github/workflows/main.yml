@@ -25,14 +25,13 @@ jobs:
         run: |
           tag=
           if [[ "${{ github.event_name }}" == 'workflow_dispatch' ]]; then
-            tag="$(awk -F: '/^version:/ snap/snapcraft.yaml {print $2}' | tr -d '[:space:]')"
+            tag="$(awk -F: '/^version:/ {print $2}' snap/snapcraft.yaml | tr -d '[:space:]')"
           else
             tag="${{inputs.tag}}"
           fi
 
           echo "tag: $tag"
           echo "version=$tag" >> $GITHUB_OUTPUT
-
 
   build-and-test:
     needs: [ prereqs ]
