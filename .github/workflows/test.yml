@@ -88,6 +88,8 @@ jobs:
           elif is_gt $version $current_version; then
             run=true
             if [[ $candidate == 'false' ]]; then commit=true; fi
+          elif [[ "$version" == "$current_version" ]]; then
+            run=true
           fi
           echo "run: $run"
           echo "commit: $commit"
